@@ -1,0 +1,63 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Подать заявку</title>
+    <link rel="stylesheet" href="{% static 'css/css.css' %}">
+</head>
+<body>
+    
+    <header>
+        <nav>
+            <ul>
+                <li><a href="{% url 'home' %}">Главная</a></li>
+                <li><a href="{% url 'history' %}">История</a></li>
+                <li><a href="{% url 'about' %}">О нас</a></li>
+                <li><a href="{% url 'contact' %}">Связь с нами</a></li>
+                <li><a href="{% url 'apply' %}">Оставить заявку</a></li>
+                <li><a href="{% url 'login' %}">Вход в аккаунт</a></li>
+                <li><a href="{% url 'logout' %}">Выход из аккаунт</a></li>
+                <li><a href="{% url 'register' %}">Регистрация</a></li>
+            </ul>
+        </nav>
+    </header>
+<h2>Подать заявку</h2>
+    {% if application %}
+        <!-- Если заявка отправлена, показываем её статус -->
+        <p>Ваша заявка находится в статусе: <strong>{{ application.get_status_display }}</strong>.</p>
+
+        {% if application.status == 'pending' %}
+            <p>Ожидайте обработки заявки. Мы уведомим вас после рассмотрения.</p>
+        
+        {% elif application.status == 'approved' %}
+            <p>Ваша заявка одобрена! Вот ваше расписание и список преподавателей.</p>
+            <h3>Расписание уроков:</h3>
+            <ul>
+                <li>Математика: Понедельник, 10:00</li>
+                <li>Физика: Вторник, 12:00</li>
+                <li>Химия: Среда, 14:00</li>
+            </ul>
+            <h3>Преподаватели:</h3>
+            <ul>
+                <li>Иван Иванов</li>
+                <li>Петр Петров</li>
+                <li>Алексей Алексеев</li>
+            </ul>
+
+        {% elif application.status == 'rejected' %}
+            <p>К сожалению, ваша заявка была отклонена. Пожалуйста, попробуйте подать заявку снова.</p>
+            <!-- Кнопка для повторной подачи заявки -->
+            <a href="{% url 'apply' %}"><button>Подать заявку снова</button></a>
+        {% endif %}
+
+    {% else %}
+        <!-- Если заявки нет, показываем форму для её подачи -->
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Отправить заявку</button>
+        </form>
+    {% endif %}
+</body>
+</html>

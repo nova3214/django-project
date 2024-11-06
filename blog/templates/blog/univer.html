@@ -1,0 +1,144 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>High School</title>
+    <link rel="stylesheet" href="{% static 'css/css.css' %}">
+    <style>
+        #slider {
+            position: relative;
+            width: 100%;
+            max-width: 800px; 
+            margin: auto; 
+            overflow: hidden; 
+        }
+        #slider img {
+            width: 100%;
+            height: auto;
+            transition: opacity 0.5s ease-in-out; 
+            opacity: 0;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+        #slider img.active {
+            opacity: 1; 
+        }
+        .text-overlay {
+            position: absolute;
+            bottom: 20px; 
+            left: 20px; 
+            color: white; 
+            background-color: rgba(0, 0, 0, 0.5); 
+            padding: 10px;
+            border-radius: 5px; 
+        }
+        button {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(255, 255, 255, 0.7); 
+            border: none;
+            padding: 10px 15px; 
+            cursor: pointer;
+            z-index: 10;
+            font-size: 16px; 
+            border-radius: 5px; 
+        }
+        button.prev {
+            left: 10px;
+        }
+        button.next {
+            right: 10px;
+        }
+        @media (max-width: 600px) {
+            button {
+                font-size: 14px;
+                padding: 8px 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="{% url 'home' %}">Главная</a></li>
+                <li><a href="{% url 'history' %}">История</a></li>
+                <li><a href="{% url 'about' %}">О нас</a></li>
+                <li><a href="{% url 'contact' %}">Связь с нами</a></li>
+                <li><a href="{% url 'apply' %}">Оставить заявку</a></li>
+                <li><a href="{% url 'login' %}">Вход в аккаунт</a></li>
+                <li><a href="{% url 'logout' %}">Выход из аккаунт</a></li>
+                <li><a href="{% url 'register' %}">Регистрация</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <section id="home">
+        <div id="slider">
+            <img class="active" src="{% static 'blog/images/ok.jpg' %}" alt="Slide 1">
+            <div class="text-overlay">
+                <h2>интересные факты</h2>
+                <p>Краткое описание для первого слайда.</p>
+            </div>
+            <img src="{% static 'blog/images/ko.jpeg' %}" alt="Slide 2">
+            <div class="text-overlay">
+                <h2>Название Слайда 2</h2>
+                <p>Краткое описание для второго слайда.</p>
+            </div>
+            <img src="{% static 'blog/images/kok.jpeg' %}" alt="Slide 3">
+            <div class="text-overlay">
+                <h2>Название Слайда 3</h2>
+                <p>Краткое описание для третьего слайда.</p>
+            </div>
+            <button class="prev" onclick="prevSlide()">Previous</button>
+            <button class="next" onclick="nextSlide()">Next</button>
+        </div>
+
+        <script>
+            let currentIndex = 0;
+            const slides = document.querySelectorAll("#slider img");
+            const overlays = document.querySelectorAll(".text-overlay");
+
+            function showSlide(index) {
+                slides[currentIndex].classList.remove('active'); 
+                overlays[currentIndex].style.display = 'none'; 
+
+                currentIndex = index;
+                if (currentIndex >= slides.length) {
+                    currentIndex = 0; 
+                } else if (currentIndex < 0) {
+                    currentIndex = slides.length - 1; 
+                }
+
+                slides[currentIndex].classList.add('active'); 
+                overlays[currentIndex].style.display = 'block'; 
+            }
+
+            function nextSlide() {
+                showSlide(currentIndex + 1);
+            }
+
+            function prevSlide() {
+                showSlide(currentIndex - 1);
+            }
+
+            overlays.forEach((overlay, index) => {
+                if (index !== 0) {
+                    overlay.style.display = 'none';
+                }
+            });
+        </script>
+
+        <h1>Добро пожаловать в High School</h1>
+        <p>Высшее образование для вашего будущего успеха.</p>
+    </section>
+
+    <footer>
+        <p>&copy; 2024 High School. Все права защищены.</p>
+    </footer>
+</body>
+</html>

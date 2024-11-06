@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Список заявок</title>
+</head>
+<body>
+    <h2>Список заявок</h2>
+    <table border="1">
+        <tr>
+            <th>Имя</th>
+            <th>Фамилия</th>
+            <th>Адрес</th>
+            <th>Email</th>
+            <th>Дата подачи</th>
+            <th>Статус</th>
+            <th>Действия</th>
+        </tr>
+        {% for application in applications %}
+        <tr>
+            <td>{{ application.name }}</td>
+            <td>{{ application.surname }}</td>
+            <td>{{ application.address }}</td>
+            <td>{{ application.email }}</td>
+            <td>{{ application.submitted_at }}</td>
+            <td>{{ application.get_status_display }}</td>
+            <td>
+                {% if application.status == 'pending' %}
+                    <a href="{% url 'approve_application' application.id %}">Одобрить</a> |
+                    <a href="{% url 'reject_application' application.id %}">Отклонить</a>
+                {% else %}
+                    {{ application.get_status_display }}
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

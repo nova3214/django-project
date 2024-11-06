@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static 'css/css.css' %}">
+    <title>Статус заявки</title>
+</head>
+<body>
+    <h2>Статус вашей заявки</h2>
+    {% if application %}
+        <p>Статус заявки: {{ application.get_status_display }}</p>
+        {% if application.status == 'approved' %}
+            <h3>Расписание уроков:</h3>
+            <ul>
+                {% for subject, time in schedule.items %}
+                    <li>{{ subject }}: {{ time }}</li>
+                {% endfor %}
+            </ul>
+            <h3>Учителя:</h3>
+            <ul>
+                {% for teacher in teachers %}
+                    <li>{{ teacher }}</li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>Ваша заявка находится на рассмотрении.</p>
+        {% endif %}
+    {% else %}
+        <p>Вы еще не подали заявку. Пожалуйста, <a href="{% url 'apply' %}">подайте заявку</a>.</p>
+    {% endif %}
+</body>
+</html>

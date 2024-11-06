@@ -1,0 +1,33 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>High School - Связь с нами</title>
+    <link rel="stylesheet" href="{% static 'css/css.css' %}">
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="{% url 'home' %}">Главная</a></li>
+                <li><a href="{% url 'history' %}">История</a></li>
+                <li><a href="{% url 'about' %}">О нас</a></li>
+                <li><a href="{% url 'contact' %}">Связь с нами</a></li>
+                <li><a href="{% url 'apply' %}">Оставить заявку</a></li>
+                <li><a href="{% url 'login' %}">Вход в аккаунт</a></li>
+                <li><a href="{% url 'logout' %}">Выход из аккаунт</a></li>
+                <li><a href="{% url 'register' %}">Регистрация</a></li>
+            </ul>
+        </nav>
+    </header>
+    <section id="contact">
+        <h2>Связь с нами</h2>
+        <p>Тут будут написаны способы связи с нами.</p>
+    </section>
+    <footer>
+        <p>&copy; 2024 High School. Все права защищены.</p>
+    </footer>
+</body>
+</html>
