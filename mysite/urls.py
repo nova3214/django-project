@@ -5,9 +5,8 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('blog.urls')),  # подключение маршрутов приложения blog
+    path('', include('blog.urls')), 
 ]
 
-# Настройка для медиафайлов (аватары и другие загруженные файлы)
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

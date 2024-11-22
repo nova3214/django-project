@@ -22,7 +22,6 @@
     </header>
 <h2>Подать заявку</h2>
     {% if application %}
-        <!-- Если заявка отправлена, показываем её статус -->
         <p>Ваша заявка находится в статусе: <strong>{{ application.get_status_display }}</strong>.</p>
 
         {% if application.status == 'pending' %}
@@ -45,12 +44,10 @@
 
         {% elif application.status == 'rejected' %}
             <p>К сожалению, ваша заявка была отклонена. Пожалуйста, попробуйте подать заявку снова.</p>
-            <!-- Кнопка для повторной подачи заявки -->
             <a href="{% url 'apply' %}"><button>Подать заявку снова</button></a>
         {% endif %}
 
     {% else %}
-        <!-- Если заявки нет, показываем форму для её подачи -->
         <form method="post">
             {% csrf_token %}
             {{ form.as_p }}

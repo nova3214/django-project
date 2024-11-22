@@ -23,7 +23,6 @@
     <h1>Личный кабинет</h1>
 <section id="dashboard">
     {% if not user.is_authenticated %}
-        <!-- Блок для входа и регистрации -->
         <h2>Вход</h2>
         <form method="post" action="{% url 'login' %}">
             {% csrf_token %}
@@ -39,7 +38,6 @@
         </form>
     
     {% else %}
-        <!-- Блок для авторизованного пользователя -->
         <p>Добро пожаловать, {{ user.username }}! <a href="{% url 'logout' %}">Выйти</a></p>
 
         <h2>Система заявок</h2>
@@ -50,8 +48,6 @@
 
             {% elif application.status == 'approved' %}
                 <p>Ваша заявка одобрена! Вот ваше расписание и список преподавателей.</p>
-
-                <!-- Таблица с расписанием и преподавателями -->
                 <h3>Расписание и преподаватели</h3>
                 <table border="1" cellpadding="10">
                     <thead>
@@ -85,7 +81,6 @@
                 <a href="{% url 'apply' %}"><button>Подать заявку снова</button></a>
             {% endif %}
         {% else %}
-            <!-- Форма для подачи заявки, если её еще нет -->
             <form method="post" action="{% url 'apply' %}">
                 {% csrf_token %}
                 {{ application_form.as_p }}
