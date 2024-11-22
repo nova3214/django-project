@@ -1,0 +1,101 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Личный кабинет</title>
+    <link rel="stylesheet" href="{% static 'css/css.css' %}">
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="{% url 'home' %}">Главная</a></li>
+                <li><a href="{% url 'history' %}">История</a></li>
+                <li><a href="{% url 'about' %}">О нас</a></li>
+                <li><a href="{% url 'contact' %}">Связь с нами</a></li>
+                <li><a href="{% url 'dashboard' %}">Личный кабинет</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+
+    <h1>Личный кабинет</h1>
+<section id="dashboard">
+    {% if not user.is_authenticated %}
+        <!-- Блок для входа и регистрации -->
+        <h2>Вход</h2>
+        <form method="post" action="{% url 'login' %}">
+            {% csrf_token %}
+            {{ login_form.as_p }}
+            <button type="submit">Войти</button>
+        </form>
+
+        <h2>Регистрация</h2>
+        <form method="post" action="{% url 'register' %}">
+            {% csrf_token %}
+            {{ register_form.as_p }}
+            <button type="submit">Зарегистрироваться</button>
+        </form>
+    
+    {% else %}
+        <!-- Блок для авторизованного пользователя -->
+        <p>Добро пожаловать, {{ user.username }}! <a href="{% url 'logout' %}">Выйти</a></p>
+
+        <h2>Система заявок</h2>
+        {% if application %}
+            <p>Ваша заявка находится в статусе: <strong>{{ application.get_status_display }}</strong>.</p>
+            {% if application.status == 'pending' %}
+                <p>Ожидайте обработки заявки. Мы уведомим вас после рассмотрения.</p>
+
+            {% elif application.status == 'approved' %}
+                <p>Ваша заявка одобрена! Вот ваше расписание и список преподавателей.</p>
+
+                <!-- Таблица с расписанием и преподавателями -->
+                <h3>Расписание и преподаватели</h3>
+                <table border="1" cellpadding="10">
+                    <thead>
+                        <tr>
+                            <th>Предмет</th>
+                            <th>Время</th>
+                            <th>Преподаватель</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Математика</td>
+                            <td>Понедельник, 10:00</td>
+                            <td>Иван Иванов</td>
+                        </tr>
+                        <tr>
+                            <td>Физика</td>
+                            <td>Вторник, 12:00</td>
+                            <td>Петр Петров</td>
+                        </tr>
+                        <tr>
+                            <td>Химия</td>
+                            <td>Среда, 14:00</td>
+                            <td>Алексей Алексеев</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            {% elif application.status == 'rejected' %}
+                <p>К сожалению, ваша заявка была отклонена. Пожалуйста, попробуйте подать заявку снова.</p>
+                <a href="{% url 'apply' %}"><button>Подать заявку снова</button></a>
+            {% endif %}
+        {% else %}
+            <!-- Форма для подачи заявки, если её еще нет -->
+            <form method="post" action="{% url 'apply' %}">
+                {% csrf_token %}
+                {{ application_form.as_p }}
+                <button type="submit">Отправить заявку</button>
+            </form>
+        {% endif %}
+    {% endif %}
+        </section>
+        <footer>
+            <p>&copy; 2024 High School. Все права защищены.</p>
+        </footer>
+</body>
+</html>

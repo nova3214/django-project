@@ -1,5 +1,7 @@
 from django.urls import path
 from . import views  # импорт 'views' из приложения 'blog'
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('', views.home, name='home'),
@@ -17,5 +19,7 @@ urlpatterns = [
     path('login/', views.CustomLoginView.as_view(), name='login'),
     path('logout/', views.CustomLogoutView.as_view(), name='logout'),
     path('application-status/', views.application_status, name='application_status'),
+    path('dashboard/', views.dashboard, name='dashboard'),
     
 ]
+

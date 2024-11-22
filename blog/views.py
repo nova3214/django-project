@@ -6,6 +6,10 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import LoginView, LogoutView
 from django.shortcuts import render, redirect
 from .forms import UserRegisterForm
+from .forms import UserRegisterForm, ApplicationForm
+from django.contrib.auth.forms import AuthenticationForm
+from .forms import ProfileForm
+from .models import Profile
 
 
 
@@ -109,4 +113,49 @@ class CustomLoginView(LoginView):
 
 class CustomLogoutView(LogoutView):
     template_name = 'blog/logout.html'
+def dashboard(request):
+    if request.method == "POST":
+        if "login" in request.POST:
+            login_form = AuthenticationForm(request, data=request.POST)
+            if login_form.is_valid():
+                user = login_form.get_user()
+                login(request, user)
+                return redirect('dashboard')
+        elif "register" in request.POST:
+            register_form = UserRegisterForm(request.POST)
+            if register_form.is_valid():
+                register_form.save()
+                return redirect('dashboard')
+    else:
+        login_form = AuthenticationForm()
+        register_form = UserRegisterForm()
+
+    application = None
+    application_form = None
+    if request.user.is_authenticated:
+        try:
+            application = Application.objects.get(user=request.user)
+        except Application.DoesNotExist:
+            application_form = ApplicationForm()
+
+    return render(request, 'blog/dashboard.html', {
+        'login_form': login_form,
+        'register_form': register_form,
+        'application': application,
+        'application_form': application_form,
+    })
+    profile, created = Profile.objects.get_or_create(user=request.user)
+
+    if request.method == 'POST':
+        profile_form = ProfileForm(request.POST, request.FILES, instance=profile)
+        if profile_form.is_valid():
+            profile_form.save()
+            return redirect('dashboard')
+    else:
+        profile_form = ProfileForm(instance=profile)
+
+    return render(request, 'blog/dashboard.html', {
+        'profile_form': profile_form,
+        'profile': profile,
+    })
 
