@@ -59,6 +59,7 @@
                 padding: 8px 12px;
             }
         }
+
     </style>
 </head>
 <body>
@@ -74,61 +75,59 @@
         </nav>
     </header>
     
-
-        <div id="slider">
-            <img class="active" src="{% static 'images/ok.jpg' %}" alt="Slide 1">
-            <div class="text-overlay">
-                <h2>интересные факты</h2>
-                <p>Краткое описание для первого слайда.</p>
-            </div>
-            <img src="{% static 'images/ko.jpeg' %}" alt="Slide 2">
-            <div class="text-overlay">
-                <h2>Название Слайда 2</h2>
-                <p>Краткое описание для второго слайда.</p>
-            </div>
-            <img src="{% static 'images/kok.jpeg' %}" alt="Slide 3">
-            <div class="text-overlay">
-                <h2>Название Слайда 3</h2>
-                <p>Краткое описание для третьего слайда.</p>
-            </div>
-            <button class="prev" onclick="prevSlide()">Previous</button>
-            <button class="next" onclick="nextSlide()">Next</button>
+    <div id="slider">
+        <img class="active" src="{% static 'blog/ok.jpg' %}" alt="Slide 1">
+        <div class="text-overlay">
+            <h2>интересные факты</h2>
+            <p>Краткое описание для первого слайда.</p>
         </div>
+        <img src="{% static 'images/ko.jpeg' %}" alt="Slide 2">
+        <div class="text-overlay">
+            <h2>Название Слайда 2</h2>
+            <p>Краткое описание для второго слайда.</p>
+        </div>
+        <img src="{% static 'images/kok.jpeg' %}" alt="Slide 3">
+        <div class="text-overlay">
+            <h2>Название Слайда 3</h2>
+            <p>Краткое описание для третьего слайда.</p>
+        </div>
+        <button class="prev" onclick="prevSlide()">Previous</button>
+        <button class="next" onclick="nextSlide()">Next</button>
+    </div>
+    <script>
+        let currentIndex = 0;
+        const slides = document.querySelectorAll("#slider img");
+        const overlays = document.querySelectorAll(".text-overlay");
 
-        <script>
-            let currentIndex = 0;
-            const slides = document.querySelectorAll("#slider img");
-            const overlays = document.querySelectorAll(".text-overlay");
+        function showSlide(index) {
+            slides[currentIndex].classList.remove('active'); 
+            overlays[currentIndex].style.display = 'none'; 
 
-            function showSlide(index) {
-                slides[currentIndex].classList.remove('active'); 
-                overlays[currentIndex].style.display = 'none'; 
-
-                currentIndex = index;
-                if (currentIndex >= slides.length) {
-                    currentIndex = 0; 
-                } else if (currentIndex < 0) {
-                    currentIndex = slides.length - 1; 
-                }
-
-                slides[currentIndex].classList.add('active'); 
-                overlays[currentIndex].style.display = 'block'; 
+            currentIndex = index;
+            if (currentIndex >= slides.length) {
+                currentIndex = 0; 
+            } else if (currentIndex < 0) {
+                currentIndex = slides.length - 1; 
             }
 
-            function nextSlide() {
-                showSlide(currentIndex + 1);
-            }
+            slides[currentIndex].classList.add('active'); 
+            overlays[currentIndex].style.display = 'block'; 
+        }
 
-            function prevSlide() {
-                showSlide(currentIndex - 1);
-            }
+        function nextSlide() {
+            showSlide(currentIndex + 1);
+        }
 
-            overlays.forEach((overlay, index) => {
-                if (index !== 0) {
-                    overlay.style.display = 'none';
-                }
-            });
-        </script>
+        function prevSlide() {
+            showSlide(currentIndex - 1);
+        }
+
+        overlays.forEach((overlay, index) => {
+            if (index !== 0) {
+                overlay.style.display = 'none';
+            }
+        });
+    </script>
 <section id="home">
         <h1>Добро пожаловать в High School</h1>
         <p>Высшее образование для вашего будущего успеха.</p>

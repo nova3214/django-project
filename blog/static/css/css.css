@@ -1,28 +1,33 @@
+/* Базовые стили */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
+
 body {
     font-family: 'Arial', sans-serif;
-    background-color: #1a1a1a; 
-    color: #e0e0e0; 
+    background: linear-gradient(120deg, #1a1a1a, #333); 
+    color: #e0e0e0;
     line-height: 1.6;
     font-size: 16px;
-    padding: 0;
     text-align: center;
+    padding: 0 10px;
 }
 
+/* Шапка */
 header {
-    background-color: #111; 
+    background: linear-gradient(90deg, #111, #444);
     color: #fff;
     padding: 25px 0;
     font-size: 24px;
     letter-spacing: 2px;
     font-weight: bold;
-    border-bottom: 3px solid #444;
+    border-bottom: 3px solid #555;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
 }
 
+/* Меню навигации */
 nav ul {
     list-style: none;
     display: flex;
@@ -31,7 +36,7 @@ nav ul {
 }
 
 nav ul li {
-    margin: 0 25px;
+    margin: 0 15px;
 }
 
 nav ul li a {
@@ -39,24 +44,25 @@ nav ul li a {
     color: #fff;
     font-size: 16px;
     text-transform: uppercase;
-    letter-spacing: 1.5px;
-    padding: 5px;
-    transition: all 0.4s ease-in-out;
+    padding: 8px;
+    transition: all 0.4s ease;
+    border-radius: 5px;
 }
 
 nav ul li a:hover {
-    color: #ff6a00; 
-    border-bottom: 2px solid #ff6a00; 
+    color: #ff9800;
+    background: rgba(255, 255, 255, 0.1);
 }
 
+/* Разделы */
 section {
     padding: 30px 20px;
     margin: 30px auto;
-    background-color: #222;
-    max-width: 900px;
+    background: rgba(34, 34, 34, 0.9);
     border-radius: 8px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
     color: #f0f0f0;
+    max-width: 900px;
 }
 
 section h2 {
@@ -65,21 +71,24 @@ section h2 {
     text-transform: uppercase;
     letter-spacing: 2px;
     font-weight: 700;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
 }
 
 section p {
     font-size: 18px; 
-    line-height: 1.6;
+    line-height: 1.8;
     margin: 15px 0;
     color: #ccc; 
 }
+
+/* Формы */
 form {
     display: flex;
     flex-direction: column;
     max-width: 400px;
     margin: 40px auto;
     padding: 20px;
-    background-color: #333;
+    background: rgba(51, 51, 51, 0.9);
     border-radius: 8px;
     border: 1px solid #444;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
@@ -88,64 +97,70 @@ form {
 form input, form textarea {
     padding: 12px;
     margin: 10px 0;
-    border: 1px solid #444;
+    border: 1px solid #555;
     border-radius: 4px;
-    background-color: #111;
+    background: #111;
     color: #f4f4f4;
     font-size: 16px;
-    font-weight: 400;
 }
 
 form input[type="submit"] {
-    background-color: #ff6a00;
+    background: linear-gradient(45deg, #ff6a00, #ff9800);
     color: #fff;
     cursor: pointer;
     border: none;
-    font-size: 18px; 
+    font-size: 18px;
     padding: 12px;
     text-transform: uppercase;
     letter-spacing: 1px;
     font-weight: bold;
-    transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease;
+    border-radius: 5px;
 }
 
 form input[type="submit"]:hover {
-    background-color: #e05c00; 
+    background: linear-gradient(45deg, #ff9800, #ff6a00);
     box-shadow: 0 4px 15px rgba(255, 106, 0, 0.6); 
 }
-footer {
-    background-color: #111;
+
+/* Таблицы */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    background: #222;
     color: #fff;
-    padding: 15px;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    border-top: 3px solid #444;
-    margin-top: 50px;
 }
 
-footer p {
-    font-size: 14px;
-    letter-spacing: 1px;
+table, th, td {
+    border: 1px solid #555;
 }
-#slider {
-    position: relative;
-    max-width: 100%;
-    margin: auto;
-    overflow: hidden;
-    border-radius: 8px;
+
+th, td {
+    padding: 15px;
+    text-align: left;
 }
+
+th {
+    background: linear-gradient(90deg, #444, #555);
+    color: #ff9800;
+    font-weight: bold;
+}
+
+/* Слайдер */
 #slider {
     max-width: 1024px;
     height: 400px;
     overflow: hidden;
-    margin: auto;
+    margin: 30px auto;
+    border-radius: 8px;
     position: relative;
-  }
+}
 
 .slides {
     display: flex;
     width: 300%;
-    animation: slide 15s infinite;
+    animation: slide 12s infinite;
 }
 
 .slides img {
@@ -154,32 +169,6 @@ footer p {
     object-fit: cover;
     transition: transform 1s ease-in-out;
 }
-#slider {
-    position: relative;
-    max-width: 100%;
-    margin: auto;
-    text-align: center;
-  }
-  #slider {
-    max-width: 1024px;
-    height: 400px;
-    overflow: hidden;
-    margin: auto;
-    position: relative;
-  }
-  
-  .slides {
-    display: flex;
-    width: 300%; 
-    animation: slide 12s infinite;
-  }
-  
-  .slides img {
-    width: 100%;
-    height: 400px;
-    object-fit: cover;
-  }
-  
 
 @keyframes slide {
     0% { transform: translateX(0%); }
@@ -187,6 +176,20 @@ footer p {
     66% { transform: translateX(-200%); }
     100% { transform: translateX(0%); }
 }
+
+/* Подвал */
+footer {
+    background: #111;
+    color: #fff;
+    padding: 15px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    border-top: 3px solid #555;
+    margin-top: 50px;
+    font-size: 14px;
+}
+
+/* Для мобильных устройств */
 @media (max-width: 768px) {
     header {
         font-size: 20px;
@@ -201,29 +204,10 @@ footer p {
     }
 
     form {
-        width: 80%;
+        width: 90%;
     }
 
-    footer p {
+    footer {
         font-size: 12px;
     }
-}
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 20px 0;
-}
-
-table, th, td {
-    border: 1px solid #ebebeb;
-}
-
-th, td {
-    padding: 10px;
-    text-align: left;
-}
-
-th {
-    background-color: #000000;
-    font-weight: bold;
 }

@@ -71,8 +71,6 @@ def apply(request):
         form = ApplicationForm()
 
     return render(request, 'blog/apply.html', {'form': form, 'application': application})
-
-
 def application_list(request):
     applications = Application.objects.all()
     return render(request, 'blog/application_list.html', {'applications': applications})
@@ -96,6 +94,7 @@ def register(request):
     else:
         form = UserRegisterForm()
     return render(request, 'blog/register.html', {'form': form})
+
 
 class CustomLoginView(LoginView):
     template_name = 'blog/login.html'
